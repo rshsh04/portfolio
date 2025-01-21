@@ -20,14 +20,8 @@ export default function Main() {
                 />
           <div>
                 <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden ring-4 ring-primary/20 hover:ring-primary/40 transition-all duration-300">
-                    <Image
-                        src="/Rashed.png"
-                        alt="Rashed Ali Shekho"
-                        fill
-                        className="object-cover"
-                        priority
-                        unoptimized={true}
-                    />
+                   
+                    <img src="/rashed.png"  alt="Rashed Ali Shekho"  className="object-cover w-full h-full" />
                 </div>
             </div>
                 <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 max-w-2xl">
