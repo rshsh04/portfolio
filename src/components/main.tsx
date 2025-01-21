@@ -26,6 +26,7 @@ export default function Main() {
                         fill
                         className="object-cover"
                         priority
+                        unoptimized={true}
                     />
                 </div>
             </div>
