@@ -1,15 +1,38 @@
-import { FaGithub, FaLinkedin, FaReact, FaNodeJs } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaReact, FaNodeJs, FaCopy } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript, SiTailwindcss,  SiJavascript, SiMongodb, SiAppwrite } from "react-icons/si";
 import Image from "next/image";
 import Link from "next/link";
 import Me from "./me";
-
+import { Bounce, Flip, ToastContainer, toast } from 'react-toastify';
 export default function Main() {
-
+const notify=()=> toast.success("📩 Email address copied! You're ready to paste it.", {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition: Flip,
+    });
 
     return (
         <>
         <main className="relative min-h-screen">
+          <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover={false}
+                theme="colored"
+                transition={Flip}
+                />
             <div className="relative container mx-auto px-4 py-44 min-h-screen flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16" id="about">
 
                 <Image
@@ -161,10 +184,21 @@ export default function Main() {
                             Feel free to reach out!
                         </p>
                         <div className="space-y-4">
-                            <a href="mailto:contact@RashedAliShekho.com" 
-                               className="block px-4 md:px-6 py-3 md:py-4 bg-base-100/50 backdrop-blur-sm rounded-xl border border-primary/30  hover:border-secondary transition-all duration-300 text-center">
-                                Contact@Rashedalishekho.com
-                            </a>
+                            <div className="group relative">
+                                <a href="mailto:contact@Rashedalishekho.com" 
+                                   className="block px-4 md:px-6 py-3 md:py-4 bg-base-100/50 backdrop-blur-sm rounded-xl border border-primary/30  hover:border-secondary transition-all duration-300 text-center">
+                                    Contact@Rashedalishekho.com
+                                </a>
+                                <button type="button" 
+                                        className="absolute top-0 right-0 p-2 text-primary/80 group-hover:text-primary/100 transition-all duration-300"
+                                        onClick={() => navigator.clipboard.writeText('contact@Rashedalishekho.com')
+                                         .then(() => {
+                                             notify();
+                                         })
+                                        }>
+                                    <FaCopy className="w-5 h-5" />
+                                </button>
+                            </div>
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <a 
                                     href="https://github.com/rshsh04" 
