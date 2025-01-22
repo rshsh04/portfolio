@@ -3,7 +3,7 @@ import { SiNextdotjs, SiTypescript, SiTailwindcss,  SiJavascript, SiMongodb, SiA
 import Image from "next/image";
 import Link from "next/link";
 import Me from "./me";
-import { Bounce, Flip, ToastContainer, toast } from 'react-toastify';
+import {  Flip, ToastContainer, toast } from 'react-toastify';
 export default function Main() {
 const notify=()=> toast.success("📩 Email address copied! You're ready to paste it.", {
     position: "top-center",
