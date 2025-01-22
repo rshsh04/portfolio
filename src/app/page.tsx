@@ -1,4 +1,5 @@
 "use client"; 
+import Footer from "@/components/footer";
 import Main from "@/components/main";
 import Nav from "@/components/nav";
 import Image from "next/image";
@@ -22,6 +23,7 @@ export default function Home() {
         </div>
     <Nav/>
     <Main/>
+    <Footer/>
     </>
   );
 }

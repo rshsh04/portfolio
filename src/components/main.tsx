@@ -2,6 +2,7 @@ import { FaGithub, FaLinkedin, FaReact, FaNodeJs } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript, SiTailwindcss,  SiJavascript, SiMongodb, SiAppwrite } from "react-icons/si";
 import Image from "next/image";
 import Link from "next/link";
+import Me from "./me";
 
 export default function Main() {
 
@@ -69,7 +70,7 @@ export default function Main() {
                     </div>
                 </div>
             </div>
-
+                        <Me/>
             <section id="projects" className="min-h-screen py-12 md:py-20 bg-base-100/90 backdrop-blur-sm rounded-t-[3rem] border-t border-neutral/10">
                 <div className="container mx-auto px-4">
                     <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-8 md:mb-12 text-center">
@@ -83,15 +84,15 @@ export default function Main() {
                         <Link href="" className="group bg-base-100/50 backdrop-blur-sm rounded-xl overflow-hidden border border-neutral/10 hover:border-primary/20 transition-all duration-300">
                             <div className="relative h-96 w-full overflow-hidden">
                                 <Image
-                                    src="/zain.png"
-                                    alt="Zain Restaurant"
+                                    src="/taza.png"
+                                    alt="Taza Restaurant"
                                     fill
                                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                                 />
                             </div>
                             <div className="p-6">
                                 <div className="flex items-center justify-between mb-4">
-                                    <h3 className="text-xl font-semibold text-neutral/90">Zain Restaurant</h3>
+                                    <h3 className="text-xl font-semibold text-neutral/90">Taza Restaurant</h3>
                                     <span className="px-3 py-1 text-sm bg-secondary/20 text-secondary rounded-full">Website</span>
                                 </div>
                                 <p className="text-neutral/70 mb-4">
@@ -160,9 +161,9 @@ export default function Main() {
                             Feel free to reach out!
                         </p>
                         <div className="space-y-4">
-                            <a href="mailto:your.email@example.com" 
+                            <a href="mailto:contact@RashedAliShekho.com" 
                                className="block px-4 md:px-6 py-3 md:py-4 bg-base-100/50 backdrop-blur-sm rounded-xl border border-primary/30  hover:border-secondary transition-all duration-300 text-center">
-                                your.email@example.com
+                                Contact@Rashedalishekho.com
                             </a>
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <a 
@@ -189,6 +190,7 @@ export default function Main() {
                 </div>
             </section>
         </main>
+     
         </>
     );
 }
