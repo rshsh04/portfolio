@@ -27,7 +27,7 @@ const notify=()=> toast.success("📩 Email address copied! You're ready to past
                 newestOnTop={false}
                 closeOnClick={false}
                 rtl={false}
-                pauseOnFocusLoss
+                pauseOnFocusLoss={false}
                 draggable
                 pauseOnHover={false}
                 theme="colored"
