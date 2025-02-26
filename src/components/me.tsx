@@ -172,9 +172,28 @@ export default function Me() {
                                 <p className="text-base text-neutral/80 font-medium mt-1">{cert.Issuing}</p>
                                 <p className="text-sm text-neutral/60 font-medium">{cert.date}</p>
                                 <Link href={cert.path} target="_blank">
-                                <p className="mt-3 text-xl text-base text-neutral/80 leading-relaxed">
-                                    Preview
-                                </p>
+                                    <button className="mt-3 px-6 py-2 rounded-full bg-gradient-to-r from-primary to-primary/80 text-black font-medium 
+                                        hover:shadow-lg hover:shadow-primary/20 
+                                        hover:scale-105 
+                                        hover:border-primary/30 
+                                        border border-transparent 
+                                        transition-all duration-300 
+                                        flex items-center gap-2 
+                                        group">
+                                        Preview
+                                        <svg 
+                                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            viewBox="0 0 24 24">
+                                            <path 
+                                                strokeLinecap="round" 
+                                                strokeLinejoin="round" 
+                                                strokeWidth={2} 
+                                                d="M9 5l7 7-7 7"
+                                            />
+                                        </svg>
+                                    </button>
                                 </Link>
                                 
                             </div>

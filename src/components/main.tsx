@@ -204,10 +204,10 @@ const notify=()=> toast.success("📩 Email address copied! You're ready to past
                                     href="https://github.com/rshsh04" 
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group flex-1 px-4 md:px-6 py-3 md:py-4 bg-base-100/50 backdrop-blur-sm rounded-xl border border-neutral/10 hover:border-primary/30 transition-all duration-300 flex items-center justify-center gap-2"
+                                    className="group flex-1 px-4 md:px-6 py-3 md:py-4 bg-base-100/50 backdrop-blur-sm rounded-xl border border-neutral/10 hover:border-secondary/30 transition-all duration-300 flex items-center justify-center gap-2"
                                 >
-                                    <FaGithub className="text-xl text-neutral/80 group-hover:text-primary transition-colors duration-300" />
-                                    <span className="text-neutral/80 group-hover:text-primary transition-colors duration-300">GitHub</span>
+                                    <FaGithub className="text-xl text-neutral/80 group-hover:text-secondary transition-colors duration-300" />
+                                    <span className="text-neutral/80 group-hover:text-secondary transition-colors duration-300">GitHub</span>
                                 </a>
                                 <a 
                                     href="https://www.linkedin.com/in/rashed-ali-shekho-03160b204/" 
