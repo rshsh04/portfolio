@@ -91,7 +91,7 @@ export default function Nav() {
                             Contact
                         </Link>
                         <a 
-                            href="/resume"
+                            href="/v2CV_2025-03-20_Rashed_Ali Shekho.pdf"
                             target="_blank"
                             rel="noopener noreferrer" 
                             className="text-lg underline decoration-primary underline-offset-4 hover:text-primary transition-colors duration-300"
