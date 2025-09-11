@@ -104,41 +104,12 @@ const notify=()=> toast.success("📩 Email address copied! You're ready to past
 
 
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <Link href="" className="group bg-base-100/50 backdrop-blur-sm rounded-xl overflow-hidden border border-neutral/10 hover:border-primary/20 transition-all duration-300">
-                            <div className="relative h-96 w-full overflow-hidden">
-                                <Image
-                                    src="/taza.png"
-                                    alt="Taza Restaurant"
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                            </div>
-                            <div className="p-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <h3 className="text-xl font-semibold text-neutral/90">Taza Restaurant</h3>
-                                    <span className="px-3 py-1 text-sm bg-secondary/20 text-secondary rounded-full">Website</span>
-                                </div>
-                                <p className="text-neutral/70 mb-4">
-                                    A modern restaurant website with an integrated admin dashboard for menu and order management.
-                                </p>
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-base-100/30 rounded-lg">
-                                        <FaReact className="w-5 h-5 text-primary" />
-                                    </div>
-                                    <div className="p-2 bg-base-100/30 rounded-lg">
-                                        <SiNextdotjs className="w-5 h-5 text-neutral/80" />
-                                    </div>
-                                    <div className="p-2 bg-base-100/30 rounded-lg">
-                                        <SiAppwrite className="w-5 h-5 text-pink-500/80" />
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
+                        
 
 
 
 
-                        <Link href="" className="group bg-base-100/50 backdrop-blur-sm rounded-xl overflow-hidden border border-neutral/10 hover:border-primary/20 transition-all duration-300">
+                        <Link href="https://zainr.vercel.app/" target="_blank" className="group bg-base-100/50 backdrop-blur-sm rounded-xl overflow-hidden border border-neutral/10 hover:border-primary/20 transition-all duration-300">
                             <div className="relative h-96 w-full overflow-hidden">
                                 <Image
                                     src="/zain.png"
