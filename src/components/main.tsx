@@ -1,5 +1,5 @@
 import { FaGithub, FaLinkedin, FaReact, FaNodeJs, FaCopy } from "react-icons/fa";
-import { SiNextdotjs, SiTypescript, SiTailwindcss,  SiJavascript, SiMongodb, SiAppwrite } from "react-icons/si";
+import { SiNextdotjs, SiTypescript, SiTailwindcss,  SiJavascript, SiMongodb, SiAppwrite, SiSupabase, SiStripe } from "react-icons/si";
 import Image from "next/image";
 import Link from "next/link";
 import Me from "./me";
@@ -110,7 +110,7 @@ const notify=()=> toast.success("📩 Email address copied! You're ready to past
 
 
                         <Link href="https://zainr.vercel.app/" target="_blank" className="group bg-base-100/50 backdrop-blur-sm rounded-xl overflow-hidden border border-neutral/10 hover:border-primary/20 transition-all duration-300">
-                            <div className="relative h-96 w-full overflow-hidden">
+                            <div className="relative h-80 w-full overflow-hidden">
                                 <Image
                                     src="/zain.png"
                                     alt="Zain Restaurant"
@@ -135,6 +135,38 @@ const notify=()=> toast.success("📩 Email address copied! You're ready to past
                                     </div>
                                     <div className="p-2 bg-base-100/30 rounded-lg">
                                         <SiAppwrite className="w-5 h-5 text-pink-500/80" />
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                         <Link href="https://www.splittra.se/" target="_blank" className="group bg-base-100/50 backdrop-blur-sm rounded-xl overflow-hidden border border-neutral/10 hover:border-primary/20 transition-all duration-300">
+                            <div className="relative h-80 w-full overflow-hidden">
+                                <Image
+                                    src="/splittra.png"
+                                    alt="Splittra"
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                            </div>
+                            <div className="p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h3 className="text-xl font-semibold text-neutral/90">Splittra</h3>
+                                    <span className="px-3 py-1 text-sm bg-secondary/20 text-secondary rounded-full">Website</span>
+                                </div>
+                                <p className="text-neutral/70 mb-4">
+A modern web app for splitting household expenses, managing members, and handling premium features — designed for clarity and trust.                                </p>
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-base-100/30 rounded-lg">
+                                        <FaReact className="w-5 h-5 text-primary" />
+                                    </div>
+                                    <div className="p-2 bg-base-100/30 rounded-lg">
+                                        <SiNextdotjs className="w-5 h-5 text-neutral/80" />
+                                    </div>
+                                    <div className="p-2 bg-base-100/30 rounded-lg">
+                                        <SiSupabase className="w-5 h-5 text-green-500/80" />
+                                    </div>
+                                    <div className="p-2 bg-base-100/30 rounded-lg">
+                                        <SiStripe className="w-5 h-5 text-purple-500/80" />
                                     </div>
                                 </div>
                             </div>
