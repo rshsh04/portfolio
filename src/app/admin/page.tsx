@@ -105,10 +105,27 @@ export default function AdminPage() {
     await supabase.auth.signOut();
   };
 
-  // ── File upload helper ──
-  const uploadFile = async (file: File, folder: string): Promise<string | null> => {
+  // ── Extract storage path from a public URL ──
+  const getStoragePath = (url: string): string | null => {
+    if (!url) return null;
+    const marker = `/storage/v1/object/public/${BUCKET}/`;
+    const idx = url.indexOf(marker);
+    if (idx === -1) return null;
+    return decodeURIComponent(url.slice(idx + marker.length));
+  };
+
+  // ── File upload helper (deletes old file first) ──
+  const uploadFile = async (file: File, folder: string, oldUrl?: string): Promise<string | null> => {
     setUploading(true);
-    const ext = file.name.split(".").pop();
+
+    // Delete old file from bucket if it exists
+    if (oldUrl) {
+      const oldPath = getStoragePath(oldUrl);
+      if (oldPath) {
+        await supabase.storage.from(BUCKET).remove([oldPath]);
+      }
+    }
+
     const safeName = file.name
       .replace(/\s+/g, "-")
       .replace(/[^a-zA-Z0-9.\-_]/g, "")
@@ -132,7 +149,7 @@ export default function AdminPage() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !editingProject) return;
-    const url = await uploadFile(file, "projects");
+    const url = await uploadFile(file, "projects", editingProject.image_url);
     if (url) {
       setEditingProject({ ...editingProject, image_url: url });
       setMsg("Image uploaded!");
@@ -143,7 +160,7 @@ export default function AdminPage() {
   const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !editingCert) return;
-    const url = await uploadFile(file, "certificates");
+    const url = await uploadFile(file, "certificates", editingCert.pdf_path);
     if (url) {
       setEditingCert({ ...editingCert, pdf_path: url });
       setMsg("PDF uploaded!");
