@@ -17,9 +17,7 @@ export default function Footer() {
         >
           <div className="space-y-1">
             <h3 className="text-lg font-bold text-gradient">Rashed Ali Shekho</h3>
-            <p className="text-xs text-neutral/30">
-              Building the future of the web, one pixel at a time.
-            </p>
+
           </div>
 
           <div className="flex flex-col items-center md:items-end gap-1 text-xs text-neutral/25">
