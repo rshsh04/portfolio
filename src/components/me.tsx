@@ -104,7 +104,7 @@ export default function Me({ certificates }: { certificates: DBCertificate[] }) 
             viewport={{ once: true, amount: 0.2 }}
             className="md:col-span-2 glass-card rounded-2xl p-6 md:p-8"
           >
-            <div className="flex items-center gap-3 mb-5">
+            <div id="about" className="flex items-center gap-3 mb-5">
               <div className="w-2 h-2 rounded-full bg-accent" />
               <h3 className="text-xs font-mono uppercase tracking-widest text-accent/80">Tech Stack</h3>
             </div>
