@@ -1,19 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript, SiTailwindcss, SiJavascript, SiMongodb, SiGit, SiSupabase } from "react-icons/si";
-import { supabase } from "@/lib/supabase";
-
-interface DBCertificate {
-  id: string;
-  name: string;
-  issuer: string;
-  date: string;
-  pdf_path: string;
-  sort_order: number;
-}
+import { DBCertificate } from "@/lib/types";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -32,16 +22,7 @@ const skills = [
   { Icon: SiGit, label: "Git", color: "text-orange-400" },
 ];
 
-export default function Me() {
-  const [certificates, setCertificates] = useState<DBCertificate[]>([]);
-
-  useEffect(() => {
-    supabase
-      .from("portfolio_certificates")
-      .select("*")
-      .order("sort_order")
-      .then(({ data }) => { if (data) setCertificates(data); });
-  }, []);
+export default function Me({ certificates }: { certificates: DBCertificate[] }) {
 
   return (
     <section className="py-20 md:py-28 relative">
@@ -159,7 +140,7 @@ export default function Me() {
                   key={index}
                   href={cert.pdf_path}
                   target="_blank"
-                  className="group flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-primary/20 transition-all duration-300"
+                  className="group flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-primary/20 hover:shadow-[0_0_20px_-5px_rgba(94,234,212,0.15)] transition-all duration-300"
                 >
                   <div className="mt-0.5 w-5 h-5 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <svg className="w-3 h-3 text-primary/60 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">

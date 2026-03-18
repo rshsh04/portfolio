@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaGithub, FaLinkedin, FaReact, FaNodeJs, FaCopy } from "react-icons/fa";
 import { SiNextdotjs, SiTypescript, SiTailwindcss, SiJavascript, SiMongodb, SiAppwrite, SiSupabase, SiStripe } from "react-icons/si";
 import Image from "next/image";
@@ -9,17 +9,7 @@ import { Flip, ToastContainer, toast } from 'react-toastify';
 import { motion, type Variants } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import { iconMap } from "@/lib/icons";
-
-interface DBProject {
-  id: string;
-  title: string;
-  description: string;
-  url: string;
-  image_url: string;
-  tag: string;
-  tech_stack: { name: string; icon: string; color: string }[];
-  sort_order: number;
-}
+import { DBProject, DBCertificate } from "@/lib/types";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -45,16 +35,13 @@ const techIcons = [
   { Icon: SiMongodb, label: "MongoDB" },
 ];
 
-export default function Main() {
-  const [projects, setProjects] = useState<DBProject[]>([]);
-
-  useEffect(() => {
-    supabase
-      .from("portfolio_projects")
-      .select("*")
-      .order("sort_order")
-      .then(({ data }) => { if (data) setProjects(data); });
-  }, []);
+export default function Main({
+  initialProjects,
+  initialCertificates,
+}: {
+  initialProjects: DBProject[];
+  initialCertificates: DBCertificate[];
+}) {
   const notify = () => toast.success("📩 Email address copied! You're ready to paste it.", {
     position: "top-center",
     autoClose: 5000,
@@ -235,7 +222,7 @@ export default function Main() {
         </section>
 
         {/* ═══════════════════ ABOUT ME ═══════════════════ */}
-        <Me />
+        <Me certificates={initialCertificates} />
 
         {/* ═══════════════════ PROJECTS ═══════════════════ */}
         <section id="projects" className="py-20 md:py-28 relative">
@@ -260,7 +247,7 @@ export default function Main() {
             </motion.p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {projects.map((project, idx) => (
+              {initialProjects.map((project, idx) => (
                 <motion.div
                   key={project.id}
                   initial={{ opacity: 0, y: 40 }}
@@ -272,7 +259,7 @@ export default function Main() {
                   <Link
                     href={project.url || "#"}
                     target="_blank"
-                    className="group block glass-card rounded-2xl overflow-hidden h-full"
+                    className="group block glass-card rounded-2xl overflow-hidden h-full hover:shadow-[0_0_30px_-5px_rgba(94,234,212,0.15)] transition-all duration-500 hover:border-primary/20"
                   >
                     <div className="relative h-64 md:h-72 w-full overflow-hidden">
                       {project.image_url && (

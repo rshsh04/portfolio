@@ -5,25 +5,8 @@ import { motion } from "framer-motion";
 
 const BUCKET = "portfolio-media";
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  url: string;
-  image_url: string;
-  tag: string;
-  tech_stack: { name: string; icon: string; color: string }[];
-  sort_order: number;
-}
-
-interface Certificate {
-  id: string;
-  name: string;
-  issuer: string;
-  date: string;
-  pdf_path: string;
-  sort_order: number;
-}
+import { DBProject as Project, DBCertificate as Certificate } from "@/lib/types";
+import { iconMap } from "@/lib/icons";
 
 const emptyProject: Omit<Project, "id"> = {
   title: "",
@@ -58,7 +41,9 @@ export default function AdminPage() {
   // Edit state
   const [editingProject, setEditingProject] = useState<Partial<Project> | null>(null);
   const [editingCert, setEditingCert] = useState<Partial<Certificate> | null>(null);
-  const [techInput, setTechInput] = useState("");
+  const [newTechName, setNewTechName] = useState("");
+  const [newTechIcon, setNewTechIcon] = useState("");
+  const [newTechColor, setNewTechColor] = useState("text-primary");
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -66,6 +51,26 @@ export default function AdminPage() {
   const [uploading, setUploading] = useState(false);
   const imgInputRef = useRef<HTMLInputElement>(null);
   const pdfInputRef = useRef<HTMLInputElement>(null);
+
+  const addTech = () => {
+    if (!newTechName || !newTechIcon || !editingProject) return;
+    const current = editingProject.tech_stack || [];
+    setEditingProject({
+      ...editingProject,
+      tech_stack: [...current, { name: newTechName, icon: newTechIcon, color: newTechColor }]
+    });
+    setNewTechName("");
+    setNewTechIcon("");
+  };
+
+  const removeTech = (index: number) => {
+    if (!editingProject) return;
+    const current = editingProject.tech_stack || [];
+    setEditingProject({
+      ...editingProject,
+      tech_stack: current.filter((_, i) => i !== index)
+    });
+  };
 
   // Auth check
   useEffect(() => {
@@ -174,15 +179,6 @@ export default function AdminPage() {
     setMsg("");
 
     let techStack = editingProject.tech_stack || [];
-    if (techInput.trim()) {
-      try {
-        techStack = JSON.parse(techInput);
-      } catch {
-        setMsg("Invalid tech_stack JSON");
-        setSaving(false);
-        return;
-      }
-    }
 
     const payload = {
       title: editingProject.title,
@@ -205,7 +201,6 @@ export default function AdminPage() {
     }
     setSaving(false);
     setEditingProject(null);
-    setTechInput("");
     fetchData();
   };
 
@@ -365,7 +360,8 @@ export default function AdminPage() {
               <button
                 onClick={() => {
                   setEditingProject({ ...emptyProject });
-                  setTechInput("[]");
+                  setNewTechName("");
+                  setNewTechIcon("");
                 }}
                 className="text-sm px-4 py-2 rounded-lg bg-primary/15 text-primary border border-primary/25 hover:bg-primary/25 transition-all"
               >
@@ -374,7 +370,9 @@ export default function AdminPage() {
             </div>
 
             <div className="space-y-3">
-              {projects.map((p) => (
+              {projects.length === 0 ? (
+                <div className="text-center py-10 bg-white/[0.02] rounded-xl border border-white/[0.05] text-neutral/50">No projects found. Add one to get started!</div>
+              ) : projects.map((p) => (
                 <div
                   key={p.id}
                   className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.1] transition-all"
@@ -394,7 +392,6 @@ export default function AdminPage() {
                     <button
                       onClick={() => {
                         setEditingProject(p);
-                        setTechInput(JSON.stringify(p.tech_stack, null, 2));
                       }}
                       className="text-xs px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-neutral/50 hover:text-primary hover:border-primary/30 transition-all"
                     >
@@ -489,13 +486,55 @@ export default function AdminPage() {
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-neutral/40 mb-1 block">Tech Stack (JSON array)</label>
-                      <textarea
-                        value={techInput}
-                        onChange={(e) => setTechInput(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-neutral/80 font-mono text-xs focus:outline-none focus:border-primary/40 min-h-[100px] resize-none"
-                        placeholder='[{"name":"React","icon":"FaReact","color":"text-primary"}]'
-                      />
+                      <label className="text-xs text-neutral/40 mb-1 block">Tech Stack</label>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {(editingProject.tech_stack || []).map((t, i) => {
+                          const IconComp = iconMap[t.icon];
+                          return (
+                            <div key={i} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs">
+                              {IconComp && <IconComp className={t.color} />}
+                              <span className="text-neutral/70">{t.name}</span>
+                              <button type="button" onClick={() => removeTech(i)} className="text-error/70 hover:text-error ml-1">&times;</button>
+                            </div>
+                          );
+                        })}
+                        {(editingProject.tech_stack || []).length === 0 && (
+                          <p className="text-xs text-neutral/50 italic">No tech stack added yet.</p>
+                        )}
+                      </div>
+                      <div className="flex gap-2 items-center bg-white/[0.02] p-2 rounded-xl">
+                        <input 
+                          placeholder="Name (e.g. React)"
+                          value={newTechName}
+                          onChange={(e) => setNewTechName(e.target.value)}
+                          className="flex-1 px-3 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-neutral/80 placeholder:text-neutral/40 text-xs focus:outline-none"
+                        />
+                        <select
+                          value={newTechIcon}
+                          onChange={(e) => setNewTechIcon(e.target.value)}
+                          className="w-28 px-2 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-neutral/80 text-xs focus:outline-none"
+                        >
+                          <option value="">Select Icon</option>
+                          {Object.keys(iconMap).map(k => <option key={k} value={k}>{k}</option>)}
+                        </select>
+                        <select
+                          value={newTechColor}
+                          onChange={(e) => setNewTechColor(e.target.value)}
+                          className="w-24 px-2 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-neutral/80 text-xs focus:outline-none"
+                        >
+                          <option value="text-primary">Primary</option>
+                          <option value="text-secondary">Secondary</option>
+                          <option value="text-accent">Accent</option>
+                          <option value="text-white">White</option>
+                          <option value="text-blue-400">Blue</option>
+                          <option value="text-yellow-400">Yellow</option>
+                          <option value="text-green-400">Green</option>
+                          <option value="text-cyan-400">Cyan</option>
+                        </select>
+                        <button type="button" onClick={addTech} className="px-3 py-2 rounded-lg bg-primary/20 text-primary text-xs hover:bg-primary/30">
+                          Add
+                        </button>
+                      </div>
                     </div>
                   </div>
                   <div className="flex gap-3 mt-5">
@@ -507,7 +546,7 @@ export default function AdminPage() {
                       {saving ? "Saving..." : "Save"}
                     </button>
                     <button
-                      onClick={() => { setEditingProject(null); setTechInput(""); }}
+                      onClick={() => { setEditingProject(null); }}
                       className="px-5 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-neutral/50 text-sm hover:text-neutral/70 transition-colors"
                     >
                       Cancel
@@ -533,7 +572,9 @@ export default function AdminPage() {
             </div>
 
             <div className="space-y-3">
-              {certificates.map((c) => (
+              {certificates.length === 0 ? (
+                <div className="text-center py-10 bg-white/[0.02] rounded-xl border border-white/[0.05] text-neutral/50">No certificates found. Add one to get started!</div>
+              ) : certificates.map((c) => (
                 <div
                   key={c.id}
                   className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.1] transition-all"
