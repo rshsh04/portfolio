@@ -3,15 +3,87 @@
 @import 'tailwindcss/utilities';
 
 :root {
-  --background: #0a0a0a;
+  --background: #0F0F14;
   --foreground: #ededed;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
+
 body {
   color: var(--foreground);
-  background:  var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+}
+
+/* ---- Radial glow behind profile photo ---- */
+.hero-glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(94,234,212,0.25) 0%, rgba(196,181,253,0.12) 50%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Glass card utility ---- */
+.glass-card {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(94,234,212,0.18);
+  box-shadow: 0 0 30px rgba(94,234,212,0.06);
+}
+
+/* ---- Gradient text utility ---- */
+.text-gradient {
+  background: linear-gradient(135deg, #5EEAD4, #C4B5FD);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Bento grid ---- */
+.bento-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- Smooth page entrance ---- */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main {
+  animation: page-in 0.6s ease-out;
+}
+
+/* ---- Scrollbar styling ---- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(94,234,212,0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(94,234,212,0.4);
 }

@@ -1,29 +1,25 @@
-"use client"; 
 import Footer from "@/components/footer";
 import Main from "@/components/main";
 import Nav from "@/components/nav";
-import Image from "next/image";
+import { supabase } from "@/lib/supabase";
+import { DBProject, DBCertificate } from "@/lib/types";
 
+export const revalidate = 60; // Revalidate every 60 seconds
 
-export default function Home() {
+export default async function Home() {
+  const [{ data: projects }, { data: certificates }] = await Promise.all([
+    supabase.from("portfolio_projects").select("*").order("sort_order"),
+    supabase.from("portfolio_certificates").select("*").order("sort_order"),
+  ]);
+
   return (
     <>
-    <div className="fixed inset-0 ">
-          <Image
-            alt="Background image"
-            src={"/backg.jpg"}
-            quality={100}
-            fill
-            sizes="100vw"
-            style={{
-              objectFit: 'cover',
-            }}
-            priority
-          />
-        </div>
-    <Nav/>
-    <Main/>
-    <Footer/>
+      <Nav />
+      <Main
+        initialProjects={projects || []}
+        initialCertificates={certificates || []}
+      />
+      <Footer />
     </>
   );
 }
